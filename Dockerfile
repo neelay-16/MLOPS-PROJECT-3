@@ -5,15 +5,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
 # Install system dependencies required by TensorFlow
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libatlas-base-dev \
-    libhdf5-dev \
-    libprotobuf-dev \
-    protobuf-compiler \
-    python3-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN pip install pandas google-cloud-storage scikit-learn PyYAML
+    pip install pandas scikit-learn imbalanced-learn redis
+
+
+# Install system dependencies required by TensorFlow
 
 # Set the working directory
 WORKDIR /app
