@@ -5,8 +5,22 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
 # Install system dependencies required by TensorFlow
-RUN pip install pandas google-cloud-storage scikit-learn PyYAML
-    pip install pandas scikit-learn imbalanced-learn redis
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libatlas-base-dev \
+    libhdf5-dev \
+    libprotobuf-dev \
+    protobuf-compiler \
+    python3-dev \
+    python3-pandas \
+    python3-sklearn \
+    python3-yaml \
+    python3-redis \
+    # Consider if a system package exists for google-cloud-storage
+    # If not, you'll still need pip for it.
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 
 
 # Install system dependencies required by TensorFlow
