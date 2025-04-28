@@ -1,0 +1,17 @@
+deployments:
+    - env: dev
+      executor: celery
+      image:
+        name: quay.io/astronomer/astro-runtime:7.3.0
+      name: dev
+      volumes:
+        - ./include:/usr/local/airflow/include
+project:
+    name: mlops-project
+
+data_ingestion:
+  bucket_name : "neelyaaaaa3"
+  bucket_file_name : "Titanic-Dataset.csv"
+  train_ratio : 0.8
+
+
