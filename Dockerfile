@@ -5,7 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
 # Install system dependencies required by TensorFlow
-RUN apt-get update && apt-get install -y \
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
     build-essential \
     libatlas-base-dev \
     libhdf5-dev \
@@ -16,10 +16,7 @@ RUN apt-get update && apt-get install -y \
     python3-sklearn \
     python3-yaml \
     python3-redis \
-    # Consider if a system package exists for google-cloud-storage
-    # If not, you'll still need pip for it.
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+   
 
 
 
