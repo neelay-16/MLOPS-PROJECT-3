@@ -2,3 +2,5 @@ pandas
 scikit-learn
 imbalanced-learn
 redis
+pyyaml
+google-cloud-storage
