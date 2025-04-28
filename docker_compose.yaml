@@ -1,0 +1,15 @@
+version: '3.10'
+services:
+  app:
+    build: .
+    ports:
+      - "5001:5001"
+    environment:
+      - REDIS_HOST=redis  # Match your Redis container’s name
+      - REDIS_PORT=6379
+    networks:
+      - my-network
+networks:
+  my-network:
+    driver: bridge
+    name: my-network  # Reference the existing network

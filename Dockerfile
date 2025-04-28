@@ -2,7 +2,9 @@ FROM python:3.10-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    REDIS_HOST=redis \
+    REDIS_PORT=6379
 
 # Install system dependencies
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
@@ -12,6 +14,9 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     libprotobuf-dev \
     protobuf-compiler \
     python3-dev \
+    libjpeg-dev \
+    zlib1g-dev \
+    libpng-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -21,14 +26,14 @@ WORKDIR /app
 # Copy the application code
 COPY . .
 
+# Update pip
+RUN pip install --no-cache-dir --upgrade pip
+
 # Install Python dependencies
 RUN pip install --no-cache-dir -e .
-
-# Train the model before running the application
-RUN python pipeline/training_pipeline.py
 
 # Expose the port
 EXPOSE 5001
 
-# Command to run the app
-CMD ["python", "application.py"]
+# Run training and application at startup
+CMD ["sh", "-c", "python pipeline/training_pipeline.py && python application.py"]

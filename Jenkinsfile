@@ -64,7 +64,8 @@ pipeline {
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
                         gcloud container clusters get-credentials ml-app-cluster --region us-central1
-                        kubectl apply -f deployment.yaml
+                        kubectl apply -f kubernetes/redis-deployment.yaml
+                        kubectl apply -f kubernetes/app-deployment.yaml
                         '''
                     }
                 }
